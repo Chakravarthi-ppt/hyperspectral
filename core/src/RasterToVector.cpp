@@ -136,7 +136,7 @@ void RasterToVector::polygonize(const RasterCube& maskCube,
     {
         GDALDriver* memDrv = GetGDALDriverManager()->GetDriverByName("MEM");
         if (memDrv) {
-            int w = ds->GetRasterXSize(), h = ds->GetRasterYSize();
+            int w = maskCube.width, h = maskCube.height;
             maskDs = memDrv->Create("", w, h, 1, GDT_Byte, nullptr);
             if (maskDs) {
                 GDALRasterBand* mb = maskDs->GetRasterBand(1);

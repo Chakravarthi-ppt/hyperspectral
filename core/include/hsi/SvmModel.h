@@ -101,6 +101,8 @@ public:
 
 private:
     std::shared_ptr<cv::ml::SVM> svm_;
+    std::vector<float> scaleMean_;  // per-band normalisation mean (BUG26)
+    std::vector<float> scaleStd_;   // per-band normalisation std-dev (BUG26)
 };
 
 } // namespace hsi
