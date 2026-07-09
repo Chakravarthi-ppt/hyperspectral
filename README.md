@@ -1,3 +1,4 @@
+
 # Hyperspectral Built-up / LULC Suite
 
 A Qt5 + C++17 desktop application and core processing library for the
@@ -180,3 +181,7 @@ for built-up/LULC).
   already share the same width/height/grid; reprojecting Sentinel-2/SAR onto
   the Hyperion grid before stacking is on you for now (a `gdalwarp`-backed
   helper would be a natural next addition, reusing `Orthorectifier`'s warp code).
+=======
+# hyperspectral
+WESEE_POC
+
