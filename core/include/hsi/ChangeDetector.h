@@ -1,23 +1,3 @@
-//#pragma once
-//#include "hsi/Types.h"
-
-//namespace hsi {
-
-//// Cross-tabulates two single-band classified rasters (same grid, different
-//// dates) into a from-class x to-class pixel-count matrix -- the land-use
-//// change matrix referenced in the workflow.
-//class ChangeDetector {
-//public:
-//    static ChangeMatrixResult computeChangeMatrix(const RasterCube& classifiedDateA,
-//                                                    const RasterCube& classifiedDateB,
-//                                                    double pixelAreaSqMeters = 900.0);
-
-//    static void saveMatrixCsv(const ChangeMatrixResult& result, const std::string& path);
-//};
-
-//} // namespace hsi
-
-
 #pragma once
 #include "hsi/Types.h"
 
