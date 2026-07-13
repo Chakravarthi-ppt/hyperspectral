@@ -54,6 +54,25 @@ Orthorectifier::Outcome Orthorectifier::ensureOrthorectified(const std::string& 
             dstWkt = wktOut;
             CPLFree(wktOut);
         }
+    } else {
+        // An explicit target CRS was given -- compare it against the
+        // source's own CRS so a caller who passed the wrong target (e.g.
+        // copy-pasted from a different scene) finds out from the log
+        // instead of getting a silently-reprojected/misaligned output.
+        const char* srcWktC = src->GetProjectionRef();
+        if (srcWktC && std::string(srcWktC).size() > 0) {
+            OGRSpatialReference srcSrs, dstSrs;
+            char* srcWktMutable = const_cast<char*>(srcWktC);
+            srcSrs.importFromWkt(&srcWktMutable);
+            std::string dstWktCopy = opts.targetSrsWkt;
+            char* dstWktMutable = const_cast<char*>(dstWktCopy.c_str());
+            dstSrs.importFromWkt(&dstWktMutable);
+            if (!srcSrs.IsSame(&dstSrs)) {
+                Logger::log("Orthorectifier", "'" + inputPath + "' source CRS differs from the requested "
+                            "target CRS -- this will reproject, not just resample. If that wasn't intended, "
+                            "double-check the target CRS passed in.");
+            }
+        }
     }
 
     char* dstWktC = const_cast<char*>(dstWkt.c_str());

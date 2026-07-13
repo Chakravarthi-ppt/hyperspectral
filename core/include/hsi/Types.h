@@ -8,6 +8,7 @@
 #include <map>
 #include <array>
 #include <stdexcept>
+#include <cmath>
 
 namespace hsi {
 
@@ -54,8 +55,18 @@ struct RasterCube {
         return v;
     }
 
+    // Width/height alone doesn't guarantee two rasters cover the same ground:
+    // two scenes can both be 861x2961 and still have different origins or
+    // pixel sizes (different geoTransform), in which case stacking them
+    // band-for-band silently misaligns every pixel. Compare geoTransform
+    // with a small tolerance (float roundtrips through GDAL/warp can differ
+    // by a few ULPs even for "the same" grid).
     bool sameGridAs(const RasterCube& other) const {
-        return width == other.width && height == other.height;
+        if (width != other.width || height != other.height) return false;
+        for (int i = 0; i < 6; ++i) {
+            if (std::abs(geoTransform[i] - other.geoTransform[i]) > 1e-6) return false;
+        }
+        return true;
     }
 
     size_t pixelCount() const { return static_cast<size_t>(width) * height; }
