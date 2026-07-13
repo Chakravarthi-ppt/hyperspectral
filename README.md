@@ -10,7 +10,7 @@ supervised/unsupervised LULC with a change matrix.
 
 This was built and verified in this session against GDAL 3.8.4, OpenCV 4.6.0,
 Eigen 3.4.0 and Qt 5.15.13 on Ubuntu 24.04 -- the same APIs are present on
-Ubuntu 20.04 (GDAL 3.0.x, OpenCV 4.2.x, Qt 5.12.x) with only minor version
+Ubuntu 20.04/ RHEL 9.2 (GDAL 3.0.x, OpenCV 4.2.x, Qt 5.12.x) with only minor version
 differences; see "Building on Ubuntu 20.04" below.
 
 ## Architecture
